@@ -19,7 +19,10 @@ public class Server {
                 // INICIA THREAD
                 //ThreadCalc t1 = new ThreadCalc(client);
                 //t1.start();
+                client.close();
             }
+
+            
         } catch (Exception e) {
             System.out.println("Erro: " + e.getMessage());
         }
