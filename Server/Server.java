@@ -2,7 +2,7 @@ package Server;
 
 import java.net.ServerSocket;
 import java.net.Socket;
-
+// o vitin continue yag
 public class Server {
     public static void main(String[] args) {
         ServerSocket server;
