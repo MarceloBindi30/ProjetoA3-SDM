@@ -23,6 +23,12 @@ public class Client {
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream()); //OUTPUT
             ObjectInputStream in = new ObjectInputStream(socket.getInputStream());  //INPUT
 
+            //teste sadadasdada
+            /*desenvolvimento
+             * projeto
+             * a3
+            */
+            System.out.println("Print na tela");
             /* ETAPA DE VERIFICAÇÃO CALCULADORA (TIRAR)
             System.out.println("Digite a operação (+, -, *, /): ");
             oper = sc.nextLine().charAt(0); //pega apenas o primeiro caracter
