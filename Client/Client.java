@@ -1,66 +1,63 @@
 package Client;
 
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.net.Socket;
 import java.util.Scanner;
 
-//import Util.MsgRequest;
-//import Util.MsgResponse;
-//import Util.Status;
-
 public class Client {
     public static void main(String[] args) {
-        Socket socket;
-        final String HOST = "Localhost"; //HOT LOCAL
-        final int PORT = 12345; // PORTA DE CONEXÃO COM SERVER
-        //double value1, value2;
-        //char oper;
-        Scanner sc = new Scanner(System.in);
+        new GUI();
+        String serverIP = "localhost"; // Endereço IP do servidor
+        int serverPort = 8080; // Porta do servidor
+        Scanner teclado = new Scanner(System.in);
+        Scanner scanner;
+        String mensagem = "";
 
+        
         try {
-            socket = new Socket(HOST, PORT);
-            ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream()); //OUTPUT
-            ObjectInputStream in = new ObjectInputStream(socket.getInputStream());  //INPUT
+            // Conectando ao servidor
+            Socket socket = new Socket(serverIP, serverPort);
+            System.out.println("Conectado ao servidor");
 
-            //teste sadadasdada
-            /*desenvolvimento
-             * projeto
-             * a3
-            */
-            System.out.println("Print na tela");
-            /* ETAPA DE VERIFICAÇÃO CALCULADORA (TIRAR)
-            System.out.println("Digite a operação (+, -, *, /): ");
-            oper = sc.nextLine().charAt(0); //pega apenas o primeiro caracter
-            System.out.println("Digite o primeiro valor: ");
-            value1 = Double.parseDouble(sc.nextLine()); 
-            System.out.println("Digite o segundo valor: ");
-            value2 = Double.parseDouble(sc.nextLine()); 
-
-           
-            MsgRequest request = new MsgRequest(value1, value2, oper);
-            out.writeObject(request);
-
-            MsgResponse response = (MsgResponse) in.readObject();
+            // Obtém streams de entrada e saída para comunicação
+            InputStream inputStream = socket.getInputStream();
+            OutputStream outputStream = socket.getOutputStream();
             
-            if(response.getStatus() == Status.SUCESSO){
-                System.out.println("Resposta: " + response.getValue());
-            }else{
-                if (response.getStatus() == Status.DIVISAO_ZERO) {
-                    System.out.println("Erro. Divisão por zero");
-                }else{
-                    System.out.println("Operador Inválido");
+            try {
+                PrintStream printStream = new PrintStream(socket.getOutputStream());
+                scanner = new Scanner(socket.getInputStream());
+                teclado = new Scanner(System.in);
+    
+                while( ! mensagem.equals("exit")) {
+                    System.out.println("Digite a mensagem:");
+                    mensagem = teclado.nextLine();
+                    
+                    printStream.println(mensagem);
+    
+                    String msg = scanner.nextLine();
+                    System.out.println("Resp servidor: " + msg);
                 }
+               
+            } catch (Exception e) {
+                System.out.println("Erro na troca de dados");
             }
-            */
+    
+            // Recebe a escolha do servidor
+            byte[] buffer = new byte[1024];
+            int bytesRead = inputStream.read(buffer);
+            String serverChoice = new String(buffer, 0, bytesRead);
 
+            // Fechando conexão
             socket.close();
-            sc.close();
-            in.close();
-            out.close();
+            System.out.println("Conexão encerrada");
 
-        } catch (Exception e) {
-            System.out.println("Erro: " + e.getMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        teclado.close();
     }
 }
+
