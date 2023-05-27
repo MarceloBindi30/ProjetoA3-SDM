@@ -4,8 +4,8 @@ Integrantes:
 
 Curso: Ciência de Dados
 
-Gustavo Maglio Campos – RA: 12522162221
-Marcelo Bindi Leal – RA: 12522189242
-Murilo Mandu dos Santos – RA: 12522160255
-Allan dos Santos Grell - RA: 12522142998
+Gustavo Maglio Campos – RA: 12522162221\n
+Marcelo Bindi Leal – RA: 12522189242\n
+Murilo Mandu dos Santos – RA: 12522160255\n
+Allan dos Santos Grell - RA: 12522142998\n
 Victor Macartney Oscar Monteiro – RA: 12522164519
