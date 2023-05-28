@@ -1,39 +1,43 @@
 package Client;
 
-import  javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.Font;
+import javax.swing.*;
 
-public class GUI implements ActionListener{
-    
-    public GUI(){
-        JFrame frame = new JFrame();
+public class GUI extends JFrame{
 
-        JButton butao1 = new JButton("Ímpar/par");
-        JButton butao2 = new JButton("Jogo da velha");
+    JButton button1;
+    JButton button2;
+    JLabel label1;
 
-        JLabel label1 = new JLabel("Seja bem-vindo a plataforma de jogos, selecione o jogo desejado: ");
+    GUI(){
 
-        JPanel panel = new JPanel();
-        panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
-        panel.setLayout(new GridLayout(0, 1));
-        panel.add(label1);
-        panel.add(butao1);
-        panel.add(butao2);
+        //Recepcionar
+        label1 = new JLabel("Seja bem-vindo a plataforma de jogos, selecione o jogo!");
+        label1.setBounds(250, 200, 1000, 100);
+        label1.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
 
-        frame.add(panel, BorderLayout.CENTER);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle("Tic Poc Tic Brei Charlie Brown");
-        frame.pack();
-        frame.setVisible(true);
+        //button1
+        button1 = new JButton();
+        button1.setBounds(400, 300, 200, 100);
+        button1.addActionListener(e -> System.out.println("Vitin eh  gay"));
+        button1.setText("Par ou Ímpar");
+        button1.setFocusable(false);
+        //button2
+        button2 = new JButton();
+        button2.setBounds(400, 450, 200, 100);
+        button2.addActionListener(e -> System.out.println("Vitin eh  gay"));
+        button2.setText("Jogo da velha");
+        button2.setFocusable(false);
 
-    }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setLayout(null);
+		this.setSize(1000,700);
+		this.setVisible(true);
+        this.add(button1);
+        this.add(button2);
+        this.add(label1);
+
     }
 
 }
