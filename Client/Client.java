@@ -29,6 +29,8 @@ public class Client {
             InputStream inputStream = socket.getInputStream();
             OutputStream outputStream = socket.getOutputStream();
             
+            //SÓ ESTA LENDO O PAR OU IMPAR//
+            ////////////////////////////////
             try {
                 PrintStream printStream = new PrintStream(socket.getOutputStream());
                 scanner = new Scanner(socket.getInputStream());
