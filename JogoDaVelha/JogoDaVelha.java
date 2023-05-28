@@ -32,9 +32,19 @@ public class JogoDaVelha {
         // Obtém streams de entrada e saída para comunicação com os jogadores
         InputStream player1InputStream = player1.getInputStream();
         OutputStream player1OutputStream = player1.getOutputStream();
-        
-        // Verifica quem ganhou e Envia o resultado para o jogador
+
         while(checkWinner == false){
+            // Gera um número aleatório para a escolha do servidor
+            serverPick = random.nextInt();
+
+            // Envia a escolha do servidor para os jogadores
+            player1OutputStream.write(serverPick);
+ 
+            // Recebe as escolhas dos jogadores
+            int player1Choice 
+ 
+        
+            // Verifica quem ganhou e Envia o resultado para o jogador
             checkWinner = checkWinner(board, result);
             if (result.equals("X")){
                 result = "Servidor ganhou!";
@@ -110,4 +120,7 @@ public class JogoDaVelha {
         return false;
     }
        
+    public static void JogoDaVelha() {
+        
+    }
 }
