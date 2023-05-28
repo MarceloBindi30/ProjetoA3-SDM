@@ -3,6 +3,8 @@ package Server;
 import java.io.IOException;
 import java.net.Socket;
 
+import JogoDaVelha.JogoDaVelha;
+
 public class ServerThread extends Thread{
     private Socket player1;
     private Socket player2;

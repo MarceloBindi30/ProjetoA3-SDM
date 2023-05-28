@@ -3,7 +3,6 @@ package JogoDaVelha;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Arrays;
 import java.util.Random;
@@ -15,16 +14,12 @@ public class JogoDaVelha {
     boolean checkWinner = false;
     String result = " ";
 
-    Board a = new Board(board);
-
     public JogoDaVelha(Socket player1,Socket player2){
         this.player1 = player1;
         this.player2 = player2;
         this.board = new String[9];
     }
-
-    Board painel = new Board(board);
-
+    
     public JogoDaVelha(Socket player1){
         this.player1 = player1;
     }
@@ -38,27 +33,8 @@ public class JogoDaVelha {
         InputStream player1InputStream = player1.getInputStream();
         OutputStream player1OutputStream = player1.getOutputStream();
         
-
+        // Verifica quem ganhou e Envia o resultado para o jogador
         while(checkWinner == false){
-
-            // Gera um número aleatório para a escolha do servidor (0 - 8) e Envia a escolha do servidor para o board
-            while(!flag){
-                serverPick = random.nextInt();
-                if(a.getUsados().contains(serverPick)){
-                    flag = false;
-                }else{
-                    flag = true;
-                }
-            }
-
-            board[serverPick] = "X";
-            a.atualizar(serverPick);
-            //Envia a escolha do servidor par o jogador
-            
-            // Recebe as escolhas dos jogadores
-            
-
-            // Verifica quem ganhou e Envia o resultado para o jogadore
             checkWinner = checkWinner(board, result);
             if (result.equals("X")){
                 result = "Servidor ganhou!";
@@ -133,6 +109,5 @@ public class JogoDaVelha {
         }
         return false;
     }
-
-    
+       
 }
