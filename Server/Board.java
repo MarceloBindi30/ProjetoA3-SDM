@@ -1,4 +1,4 @@
-package Client;
+package Server;
 
 import java.awt.Font;
 import javax.swing.*;
