@@ -1,4 +1,4 @@
-package Server;
+package JogoDaVelha;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,22 +31,30 @@ public class JogoDaVelha {
 
     public void PlayerVSCPU() throws IOException{
         Random random = new Random(9);
+        int serverPick;
+        boolean flag = false;
 
         // Obtém streams de entrada e saída para comunicação com os jogadores
         InputStream player1InputStream = player1.getInputStream();
         OutputStream player1OutputStream = player1.getOutputStream();
-        boardWrite(board);
+        
 
         while(checkWinner == false){
 
-            // Gera um número aleatório para a escolha do servidor (0 - 8)
-            int serverPick = random.nextInt();
+            // Gera um número aleatório para a escolha do servidor (0 - 8) e Envia a escolha do servidor para o board
+            while(!flag){
+                serverPick = random.nextInt();
+                if(a.getUsados().contains(serverPick)){
+                    flag = false;
+                }else{
+                    flag = true;
+                }
+            }
 
-            // Envia a escolha do servidor para o board
             board[serverPick] = "X";
-
+            a.atualizar(serverPick);
             //Envia a escolha do servidor par o jogador
-            boardWrite(board);
+            
             // Recebe as escolhas dos jogadores
             
 
@@ -68,10 +76,6 @@ public class JogoDaVelha {
 
     public void PlayerVSPlayer(){
 
-    }
-
-    private void boardWrite(String[] board){
-        
     }
 
     private boolean checkWinner(String[] board, String result){
