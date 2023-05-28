@@ -10,12 +10,15 @@ import java.util.Scanner;
 public class Client {
     public static void main(String[] args) {
         GUI Menu = new GUI();
+        //Board teste = new Board();
         String serverIP = "localhost"; // Endereço IP do servidor
         int serverPort = 8080; // Porta do servidor
         Scanner teclado = new Scanner(System.in);
         Scanner scanner;
         String mensagem = "";
 
+        //TO DO
+        //socketClient.getInetAddress().getHostAddress()
         
         try {
             // Conectando ao servidor
@@ -30,16 +33,6 @@ public class Client {
                 PrintStream printStream = new PrintStream(socket.getOutputStream());
                 scanner = new Scanner(socket.getInputStream());
                 teclado = new Scanner(System.in);
-    
-                while( ! mensagem.equals("exit")) {
-                    System.out.println("Digite a mensagem:");
-                    mensagem = teclado.nextLine();
-                    
-                    printStream.println(mensagem);
-    
-                    String msg = scanner.nextLine();
-                    System.out.println("Resp servidor: " + msg);
-                }
                
             } catch (Exception e) {
                 System.out.println("Erro na troca de dados");

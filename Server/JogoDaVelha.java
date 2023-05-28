@@ -8,19 +8,23 @@ import java.net.Socket;
 import java.util.Arrays;
 import java.util.Random;
 
+import Client.Board;
+
 public class JogoDaVelha {
     private Socket player1;
     private Socket player2;
     private String[] board;
     boolean checkWinner = false;
     String result = " ";
-    Board painel = new Board();
+    
 
     public JogoDaVelha(Socket player1,Socket player2){
         this.player1 = player1;
         this.player2 = player2;
         this.board = new String[9];
     }
+
+    Board painel = new Board(board);
 
     public JogoDaVelha(Socket player1){
         this.player1 = player1;
@@ -68,7 +72,7 @@ public class JogoDaVelha {
     }
 
     private void boardWrite(String[] board){
-        painel.atualizarPainel(board);
+        //painel.atualizarPainel(board);
     }
 
     private boolean checkWinner(String[] board, String result){
