@@ -31,11 +31,17 @@ public class Board extends JFrame{
     JButton button8;
     JButton button9;
     JLabel label1;
-    String[] board = {"-","-","-","-","-","-","-","-","-"};
+    String[] board;
+    String pick;
 
     public Board(String[] board){
         this.board = board;
     }
+
+    public void attBoard(String[] board){
+        
+    }
+
 
     Board(){
 
@@ -47,7 +53,7 @@ public class Board extends JFrame{
         //button1
         button1 = new JButton();
         button1.setBounds(300, 400,  100, 50);
-        button1.addActionListener(e -> System.out.println("Vitin eh  gay"));
+        button1.addActionListener(e -> board[0] = pick);
         button1.setText(board[0]);
         button1.setFocusable(false);
 

@@ -1,8 +1,6 @@
 package JogoDaVelha;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.Socket;
 import java.util.Arrays;
 import java.util.Random;
@@ -10,14 +8,16 @@ import java.util.Random;
 public class JogoDaVelha {
     private Socket player1;
     private Socket player2;
-    private String[] board;
+    
     boolean checkWinner = false;
     String result = " ";
+    int turno = 0;
+    boolean flag = false;
+
 
     public JogoDaVelha(Socket player1,Socket player2){
         this.player1 = player1;
         this.player2 = player2;
-        this.board = new String[9];
     }
     
     public JogoDaVelha(Socket player1){
@@ -25,23 +25,45 @@ public class JogoDaVelha {
     }
 
     public void PlayerVSCPU() throws IOException{
-        Random random = new Random(9);
-        int serverPick;
+        Random random = new Random();
+        int pick;
         boolean flag = false;
-
-        // Obtém streams de entrada e saída para comunicação com os jogadores
-        InputStream player1InputStream = player1.getInputStream();
-        OutputStream player1OutputStream = player1.getOutputStream();
+        String[] board = {"-","-","-","-","-","-","-","-","-"};
+        Board teste = new Board(board);
 
         while(checkWinner == false){
             // Gera um número aleatório para a escolha do servidor
-            serverPick = random.nextInt();
+            pick = random.nextInt(9);
+            do{
+                if(verificaJogada(board, pick)){
+                    board[pick] = "X";
+                    flag = true;
+                }else{
+                 System.out.println("Jogada inválida");
+                }
+            }
+            while(flag == false);
 
+            String[] board = {"-","X","-","-","-","-","-","-","-"};
+
+
+            teste.attBoard(board);
+
+            do{
+                if(verificaJogada(board, pick)){
+                    board[pick] = "X";
+                    flag = true;
+                }else{
+                 System.out.println("Jogada inválida");
+                }
+            }
+            while(flag == false);
+            
             // Envia a escolha do servidor para os jogadores
-            player1OutputStream.write(serverPick);
+            //player1OutputStream.write(serverPick);
  
             // Recebe as escolhas dos jogadores
-            int player1Choice 
+            //int player1Choice 
  
         
             // Verifica quem ganhou e Envia o resultado para o jogador
@@ -53,7 +75,7 @@ public class JogoDaVelha {
             }else{
                 result = "Empate!";
             }
-            player1OutputStream.write(result.getBytes());
+            //player1OutputStream.write(result.getBytes());
 
             // Fecha os sockets
             player1.close();
@@ -119,8 +141,13 @@ public class JogoDaVelha {
         }
         return false;
     }
-       
-    // public static void JogoDaVelha() {
-        
-    // }
+
+    public boolean verificaJogada(String[] board, int pick){
+        if(board[pick].equals("-")){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 }
