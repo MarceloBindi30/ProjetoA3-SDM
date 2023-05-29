@@ -1,7 +1,9 @@
-package Server;
+package com.a3sdm.Server;
 
 import java.io.IOException;
 import java.net.Socket;
+
+import com.a3sdm.Jogos.ImparPar;
 
 import JogoDaVelha.JogoDaVelha;
 

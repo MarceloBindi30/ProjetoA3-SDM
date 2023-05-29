@@ -1,4 +1,4 @@
-package JogoDaVelha;
+package com.a3sdm.JogoDaVelha;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

@@ -1,4 +1,4 @@
-package Client;
+package com.a3sdm.Client;
 
 import java.io.IOException;
 import java.io.InputStream;

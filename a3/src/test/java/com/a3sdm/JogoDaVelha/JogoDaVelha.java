@@ -1,4 +1,4 @@
-package JogoDaVelha;
+package com.a3sdm.JogoDaVelha;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -44,7 +44,7 @@ public class JogoDaVelha {
             }
             while(flag == false);
 
-            String[] board = {"-","X","-","-","-","-","-","-","-"};
+            //String[] board = {"-","X","-","-","-","-","-","-","-"};
 
 
             teste.attBoard(board);

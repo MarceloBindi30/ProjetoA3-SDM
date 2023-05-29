@@ -14,7 +14,7 @@
  * 
 */
 
-package JogoDaVelha;
+package com.a3sdm.JogoDaVelha;
 
 import java.awt.Font;
 import javax.swing.*;

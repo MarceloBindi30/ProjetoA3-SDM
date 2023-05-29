@@ -1,11 +1,11 @@
-package Client;
+package com.a3sdm.Client;
 
 import java.awt.Font;
 import java.net.Socket;
 
 import javax.swing.*;
 
-import Server.ImparPar;
+//import Server.ImparPar;
 
 public class GUI extends JFrame{
 
@@ -16,9 +16,7 @@ public class GUI extends JFrame{
     JButton button3;
     JButton button4;
     JLabel label1;
-    private ImparPar ImparPar;
-
-    
+    //private ImparPar ImparPar;
 
     GUI(){
 
@@ -51,8 +49,6 @@ public class GUI extends JFrame{
         button4.addActionListener(e -> System.out.println("Vitin eh  gay"));
         button4.setText("Jogo da Velha (Vs. Player)");
         button4.setFocusable(false);
-
-
 
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

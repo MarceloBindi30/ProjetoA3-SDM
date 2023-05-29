@@ -1,4 +1,4 @@
-package Server;
+package com.a3sdm.Server;
 
 import java.net.Socket;
 import java.io.IOException;

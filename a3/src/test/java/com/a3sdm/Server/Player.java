@@ -1,4 +1,4 @@
-package Server;
+package com.a3sdm.Server;
 
 import java.io.IOException;
 import java.io.InputStream;
