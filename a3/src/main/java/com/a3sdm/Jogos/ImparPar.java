@@ -5,6 +5,7 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Random;
+import java.util.Scanner;
 
 public class ImparPar {
     private Socket player1;
@@ -95,6 +96,47 @@ public class ImparPar {
         player1.close();
         player2.close();
 
+    }
+
+    public void PlayerVSCPUSemSocket() throws IOException{
+        Random random = new Random();
+        int numeroAleatorio = random.nextInt(5) + 1;
+        
+        Scanner scanner = new Scanner(System.in);
+
+        // Gera um número aleatório para a escolha do servidor (ímpar ou par)
+        boolean serverIsOdd = random.nextBoolean();
+
+        // Envia a escolha do servidor para os jogadores
+        String serverChoice = serverIsOdd ? "ímpar" : "par";
+        System.out.println("A soma deve ser: " + serverChoice);
+
+        System.out.println("Escolha um número de 1 a 5");
+        // Recebe as escolhas dos jogadores
+        String player1Choice = scanner.nextLine();
+
+        boolean canContinue = true;
+
+        while (canContinue) {
+            if (player1Choice.matches("\\d+") && Integer.parseInt(player1Choice) > 0 && Integer.parseInt(player1Choice) < 6) {
+                canContinue = false;
+            } else {
+                System.out.println("Entrada inválida. Por favor, insira um número entre 1 e 4:");
+                player1Choice = scanner.nextLine();
+            }
+        }
+
+        // Verifica quem ganhou
+        int sum = Integer.parseInt(player1Choice) + (numeroAleatorio);
+        boolean isSumOdd = sum % 2 != 0;
+        boolean player1Wins = (isSumOdd && serverIsOdd) || (!isSumOdd && !serverIsOdd);
+
+        // Envia o resultado para os jogadores
+        String result = player1Wins ? "Jogador 1 ganhou!" : "Servidor ganhou!";
+        System.out.println("A soma deu "+ sum + "\n"+result);
+
+        scanner.close();
+         
     }
 
     private static void sendMessage(Socket socket, String message) {

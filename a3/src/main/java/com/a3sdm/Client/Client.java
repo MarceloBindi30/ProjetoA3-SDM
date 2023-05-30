@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class Client {
     public static void main(String[] args) {
-        GUI Menu = new GUI();
+        //GUI Menu = new GUI();
         //Board teste = new Board();
         String serverIP = "localhost"; // Endereço IP do servidor
         int serverPort = 8080; // Porta do servidor
@@ -29,21 +29,46 @@ public class Client {
             InputStream inputStream = socket.getInputStream();
             OutputStream outputStream = socket.getOutputStream();
             
-            //SÓ ESTA LENDO O PAR OU IMPAR//
-            ////////////////////////////////
-            try {
+            // //SÓ ESTA LENDO O PAR OU IMPAR//
+            // ////////////////////////////////
+            // try {
+            //     PrintStream printStream = new PrintStream(socket.getOutputStream());
+            //     scanner = new Scanner(socket.getInputStream());
+            //     teclado = new Scanner(System.in);
+               
+            // } catch (Exception e) {
+            //     System.out.println("Erro na troca de dados");
+            // }
+    
+            // // Recebe a escolha do servidor
+            // byte[] buffer = new byte[1024];
+            // int bytesRead = inputStream.read(buffer);
+            // String serverChoice = new String(buffer, 0, bytesRead);
+
+            String msg = "a";
+            try{
                 PrintStream printStream = new PrintStream(socket.getOutputStream());
                 scanner = new Scanner(socket.getInputStream());
                 teclado = new Scanner(System.in);
-               
-            } catch (Exception e) {
+
+                while(socket.isConnected()){
+
+                byte[] buffer = new byte[1024];
+                int bytesRead = inputStream.read(buffer);
+                String serverChoice = new String(buffer, 0, bytesRead);
+                System.out.println("Servidor: " + serverChoice);
+
+                scanner = new Scanner(System.in);
+                String playerChoice = scanner.nextLine();
+                printStream.println(playerChoice);
+
+
+                }
+
+            }catch(Exception e){
                 System.out.println("Erro na troca de dados");
             }
-    
-            // Recebe a escolha do servidor
-            byte[] buffer = new byte[1024];
-            int bytesRead = inputStream.read(buffer);
-            String serverChoice = new String(buffer, 0, bytesRead);
+
 
             // Fechando conexão
             socket.close();
