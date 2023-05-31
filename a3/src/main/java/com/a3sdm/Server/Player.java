@@ -68,8 +68,6 @@ public class Player {
                 }
             }while(!resposta.equals("S") && !resposta.equals("s"));
 
-            //playerInputStream.close();
-            //scanner.close();
             return jogo;
     }
 
@@ -107,8 +105,7 @@ public class Player {
                     numbOfPlayers = 2;
                 }
             }while( !resposta.equals("S") && !resposta.equals("s") && !resposta.equals("M") && !resposta.equals("m"));
-            //playerInputStream.close();
-            //scanner.close();
+
             return numbOfPlayers;
     }
 

@@ -45,7 +45,7 @@ public class Client {
             // int bytesRead = inputStream.read(buffer);
             // String serverChoice = new String(buffer, 0, bytesRead);
 
-            String msg = "a";
+            String msg = "";
             try{
                 PrintStream printStream = new PrintStream(socket.getOutputStream());
                 scanner = new Scanner(socket.getInputStream());
