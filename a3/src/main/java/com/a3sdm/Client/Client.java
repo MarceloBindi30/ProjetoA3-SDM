@@ -29,22 +29,6 @@ public class Client {
             InputStream inputStream = socket.getInputStream();
             OutputStream outputStream = socket.getOutputStream();
             
-            // //SÓ ESTA LENDO O PAR OU IMPAR//
-            // ////////////////////////////////
-            // try {
-            //     PrintStream printStream = new PrintStream(socket.getOutputStream());
-            //     scanner = new Scanner(socket.getInputStream());
-            //     teclado = new Scanner(System.in);
-               
-            // } catch (Exception e) {
-            //     System.out.println("Erro na troca de dados");
-            // }
-    
-            // // Recebe a escolha do servidor
-            // byte[] buffer = new byte[1024];
-            // int bytesRead = inputStream.read(buffer);
-            // String serverChoice = new String(buffer, 0, bytesRead);
-
             String msg = "";
             try{
                 PrintStream printStream = new PrintStream(socket.getOutputStream());

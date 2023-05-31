@@ -7,8 +7,6 @@ import java.net.Socket;
 import java.util.Random;
 import java.util.Scanner;
 
-import com.a3sdm.Server.Server;
-
 public class ImparPar {
     private Socket player1;
     private Socket player2;
@@ -45,7 +43,7 @@ public class ImparPar {
             if (respostaPlayer.matches("\\d+") && Integer.parseInt(respostaPlayer) > 0 && Integer.parseInt(respostaPlayer) < 6) {
                 canContinue = false;
             } else {
-                sendMessage(player1,"Entrada inválida. Por favor, insira um número entre 1 e 5:");
+                sendMessage(player1,"Entrada inválida. Por favor, insira um número entre 1 e 5:" + respostaPlayer);
                 respostaPlayer = scanner.nextLine();
             }
         }
