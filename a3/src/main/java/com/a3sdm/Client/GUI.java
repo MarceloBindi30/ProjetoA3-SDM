@@ -2,6 +2,7 @@ package com.a3sdm.Client;
 
 import java.awt.Font;
 import java.net.Socket;
+import com.a3sdm.Jogos.JogoDaVelha;
 
 import javax.swing.*;
 
@@ -9,6 +10,7 @@ import javax.swing.*;
 
 public class GUI extends JFrame{
 
+    private JogoDaVelha jogoDaVelha;
     private Socket player1;
     private Socket player2;
     JButton button1;
@@ -31,18 +33,21 @@ public class GUI extends JFrame{
         button1.addActionListener(e -> System.out.println("pain"));
         button1.setText("Par ou Ímpar (Vs. Bot)");
         button1.setFocusable(false);
+        
         //button2
         button2 = new JButton();
         button2.setBounds(250, 450, 200, 100);
         button2.addActionListener(e -> System.out.println("Vitin eh  gay"));
         button2.setText("Par ou Ímpar (Vs. Player)");
         button2.setFocusable(false);
+       
         //button3
         button3 = new JButton();
         button3.setBounds(550, 300, 200, 100);
-        button3.addActionListener(e -> System.out.println("Vitin eh  gay"));
+        button3.addActionListener(e -> jogoDaVelha = new JogoDaVelha());
         button3.setText("Jogo da Velha (Vs. Bot)");
         button3.setFocusable(false);
+       
         //button4
         button4 = new JButton();
         button4.setBounds(550, 450, 200, 100);
