@@ -37,8 +37,8 @@ public class ServerThread extends Thread{
             }
         }else if(jogo == 2 ){
             if (player2 == null){
-                //jogoDaVelha = new JogoDaVelha(player1);
-                //jogoDaVelha.PlayerVSCPU();
+                jogoDaVelha = new JogoDaVelha(); // Abre um novo jogo da velha
+                //jogoDaVelha.main(null);
             }else{
                 //jogoDaVelha = new JogoDaVelha(player1, player2);
                 //jogoDaVelha.PlayerVSPlayer();
