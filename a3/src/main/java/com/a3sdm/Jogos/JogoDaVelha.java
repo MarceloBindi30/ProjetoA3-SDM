@@ -5,11 +5,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 public class JogoDaVelha extends JFrame {
     private JButton[][] botoes;
     private char jogadorAtual;
     private boolean jogoAtivo;
+    private Random rdm = new Random();
 
     public JogoDaVelha() {
         super("Jogo da Velha");
@@ -50,6 +52,8 @@ public class JogoDaVelha extends JFrame {
             if (jogoAtivo && botoes[linha][coluna].getText().isEmpty()) {
                 botoes[linha][coluna].setText(String.valueOf(jogadorAtual));
                 verificarVencedor();
+                trocarJogador();
+                cpuJoga();
                 trocarJogador();
             }
         }
@@ -114,6 +118,24 @@ public class JogoDaVelha extends JFrame {
 
     private void trocarJogador() {
         jogadorAtual = (jogadorAtual == 'X') ? 'O' : 'X';
+    }
+
+    private void cpuJoga(){
+        int linha = 0;
+        int coluna = 0;
+        boolean flag = true;
+
+        while(flag){
+            linha = rdm.nextInt(3);
+            coluna = rdm.nextInt(3);
+            if (jogoAtivo && botoes[linha][coluna].getText().isEmpty()) {
+                botoes[linha][coluna].setText(String.valueOf(jogadorAtual));
+                flag = false;
+                //System.out.println(linha + " " + coluna);  ***TESTE UNITÁRIO***
+                verificarVencedor();
+            }
+        }
+        //flag = true;
     }
 
     private void reiniciarJogo() {

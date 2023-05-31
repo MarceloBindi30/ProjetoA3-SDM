@@ -1,6 +1,9 @@
 package com.a3sdm.Server;
 
 import java.net.Socket;
+
+import com.a3sdm.Jogos.JogoDaVelha;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
@@ -18,6 +21,8 @@ public class Server {
         //Criação do ServerSocket
         serverSocket = new ServerSocket(port);
         System.out.println("Aguardando jogadores...");
+
+        //JogoDaVelha.main(args); /***TESTE***/
 
         while(true){
             Socket player1Socket = serverSocket.accept();
