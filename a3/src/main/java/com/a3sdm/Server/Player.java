@@ -68,8 +68,8 @@ public class Player {
                 }
             }while(!resposta.equals("S") && !resposta.equals("s"));
 
-            playerInputStream.close();
-            scanner.close();
+            //playerInputStream.close();
+            //scanner.close();
             return jogo;
     }
 
@@ -85,8 +85,8 @@ public class Player {
                   "ou quer mostrar suas habilidades desafiando alguém?\n " +
                   "Digite (S) para jogar sozinho(a) e (M) para desafiar outro jogador! \n ";
             do{
-                resposta = scanner.nextLine();
                 sendMessage(playerSocket,message);
+                resposta = scanner.nextLine();
                 if(!resposta.equals("S") && !resposta.equals("M")){
                     sendMessage(playerSocket,"Eu não faço ideia o que isso significa, mas vamos tentar de novo");
                 }
@@ -107,8 +107,8 @@ public class Player {
                     numbOfPlayers = 2;
                 }
             }while( !resposta.equals("S") && !resposta.equals("s") && !resposta.equals("M") && !resposta.equals("m"));
-            playerInputStream.close();
-            scanner.close();
+            //playerInputStream.close();
+            //scanner.close();
             return numbOfPlayers;
     }
 

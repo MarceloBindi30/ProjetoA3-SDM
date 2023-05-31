@@ -2,8 +2,6 @@ package com.a3sdm.Server;
 
 import java.net.Socket;
 
-import com.a3sdm.Jogos.JogoDaVelha;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
@@ -28,7 +26,7 @@ public class Server {
             Socket player1Socket = serverSocket.accept();
             System.out.println("Conexão estabelecida com Jogador 1: " + player1Socket.getInetAddress());
             player1 = new Player(player1Socket);
-
+            
             Socket player2Socket = serverSocket.accept();
             System.out.println("Conexão estabelecida com Jogador 2: " + player2Socket.getInetAddress());
             player2 = new Player(player2Socket);
