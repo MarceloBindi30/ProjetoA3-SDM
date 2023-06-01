@@ -32,14 +32,16 @@ public class Server {
             Socket clientSocket = serverSocket.accept();
             System.out.println("Nova conexão estabelecida: " + clientSocket.getInetAddress());
 
+            // Recepção de cliente e criação de Player
             playerList.add(new Player(clientSocket));
+            // Player aguardando na lista
             
             for (Player player : playerList){
-                if(player.getJogo() == 1){ //imparpar
+                if(player.getJogo() == 1){ //Add na lista de espera imparpar
                     addPlayer(player,1);
-                }else if(player.getJogo() == 2){//jogo da velha
+                }else if(player.getJogo() == 2){//Add na lista de espera jogo da velha
                     addPlayer(player,2);
-                }else if(player.getJogo() == 3){//pedra/papel/tesoura
+                }else if(player.getJogo() == 3){//Add na lista de espera pedra/papel/tesoura
                     addPlayer(player,3);
                 }
             }
@@ -60,30 +62,34 @@ public class Server {
         }
     }
 
+    /*************************************************************************************/
+    //VERIFICAR NECESSIDADE DE CRIAR OUTRA CLASSE PARA GERENCIAR FILA DE ESPERA DO SERVER//
+    /*************************************************************************************/
+
     public static synchronized void addPlayer(Player player, int jogo) {
-        if (player.getNumbOfPlayers() == 2) {
-            availablePlayers.add(player.getSocketPlayer());
+        if (player.getNumbOfPlayers() == 2) { //ESCOLHEU JOGAR MULTIPLAYER
+            availablePlayers.add(player.getSocketPlayer()); //ADICIONA NA FILA DE ESPERA SÓ COM SOCKET
             notifyPlayerJoined();
-            if (availablePlayers.size() >= 2) {
-                Socket player1 = availablePlayers.remove(0);
-                Socket player2 = availablePlayers.remove(0);
-                GameThread = new ServerThread(player1, player2,jogo);
+            if (availablePlayers.size() >= 2) { //VERIFICA A LISTA DE ESPERA
+                Socket player1 = availablePlayers.remove(0); //PEGA O SOCKET DO PRIMEIRO DA LISTA E REMOVE ELE
+                Socket player2 = availablePlayers.remove(0); //PEGA O SOCKET DO sEGUNDO DA LISTA E REMOVE ELE
+                GameThread = new ServerThread(player1, player2, jogo); // CRIA THREAD COM OS PLAYERS E O JOGO
             } else {
-                while (availablePlayers.size() < 2) {
+                while (availablePlayers.size() < 2) { //LOOP DE AGURADE PARA MULTIPLAYER
                     try {
                         Server.class.wait(); // Aguarda até que haja jogadores suficientes
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
-                Socket player1 = availablePlayers.remove(0);
-                Socket player2 = availablePlayers.remove(0);
-                GameThread = new ServerThread(player1, player2, jogo);
+                Socket player1 = availablePlayers.remove(0); //PEGA O SOCKET DO PRIMEIRO DA LISTA E REMOVE ELE
+                Socket player2 = availablePlayers.remove(0); //PEGA O SOCKET DO sEGUNDO DA LISTA E REMOVE ELE
+                GameThread = new ServerThread(player1, player2, jogo); // CRIA THREAD COM OS PLAYERS E O JOGO
             }
         } else {
-            GameThread = new ServerThread(player.getSocketPlayer(),jogo);
+            GameThread = new ServerThread(player.getSocketPlayer(),jogo); //ESCOLHEU JOGAR SINGLEPLAYER
         }
-        GameThread.start();
+        GameThread.start(); //STARTA A THREAD
     }
 
     public static synchronized void notifyPlayerJoined() {
