@@ -1,4 +1,5 @@
 package com.a3sdm.Jogos;
+import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -7,18 +8,38 @@ import java.net.Socket;
 import java.util.Random;
 import java.util.Scanner;
 
-public class ImparPar {
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+
+public class ImparPar extends JFrame{
     private Socket player1;
     private Socket player2;
+    private JTextField campoTexto;
 
-    public ImparPar(Socket player1,Socket player2){
-        this.player1 = player1;
-        this.player2 = player2;
+    // public ImparPar(Socket player1,Socket player2){
+    //     this.player1 = player1;
+    //     this.player2 = player2;
+    // }
+    public ImparPar(){
+        super("Par ou Ímpar");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLayout(null);
+		setSize(1000,700);
+        setBackground(Color.cyan); 
+        campoTexto = new JTextField(); 
+        campoTexto.setVisible(true); 
+        campoTexto.setBounds(250, 450, 200, 100);
+        setLocationRelativeTo(null);
+        add(campoTexto);
+
+        setVisible(true); 
     }
 
-    public ImparPar(Socket player1){
-        this.player1 = player1;
-    }
+    // public ImparPar(Socket player1){
+    //     this.player1 = player1;
+    // }
 
     public void PlayerVSCPU() throws IOException{
         Random random = new Random();

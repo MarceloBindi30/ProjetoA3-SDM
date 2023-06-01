@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class Client {
     public static void main(String[] args) {
-        //GUI Menu = new GUI();
+        GUI Menu = new GUI();
         //Board teste = new Board();
         String serverIP = "localhost"; // Endereço IP do servidor
         int serverPort = 8080; // Porta do servidor

@@ -2,7 +2,7 @@ package com.a3sdm.Client;
 
 import java.awt.Font;
 import java.net.Socket;
-import com.a3sdm.Jogos.JogoDaVelha;
+import com.a3sdm.Jogos.*;
 
 import javax.swing.*;
 
@@ -18,7 +18,7 @@ public class GUI extends JFrame{
     JButton button3;
     JButton button4;
     JLabel label1;
-    //private ImparPar ImparPar;
+    private ImparPar imparPar;
 
     GUI(){
 
@@ -27,13 +27,12 @@ public class GUI extends JFrame{
         label1.setBounds(250, 200, 1000, 100);
         label1.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
 
-        //button1
+        //button1 impar par vs bot
         button1 = new JButton();
         button1.setBounds(250, 300, 200, 100);
-        button1.addActionListener(e -> System.out.println("pain"));
-        button1.setText("Par ou Ímpar (Vs. Bot)");
+        button1.addActionListener(e -> imparPar = new ImparPar());
+        button1.setText("Par ou Ímpar (Vs. Bot)"); 
         button1.setFocusable(false);
-        
         //button2
         button2 = new JButton();
         button2.setBounds(250, 450, 200, 100);
@@ -41,7 +40,7 @@ public class GUI extends JFrame{
         button2.setText("Par ou Ímpar (Vs. Player)");
         button2.setFocusable(false);
        
-        //button3
+        //button3 jogo da velha vs bot
         button3 = new JButton();
         button3.setBounds(550, 300, 200, 100);
         button3.addActionListener(e -> jogoDaVelha = new JogoDaVelha());
