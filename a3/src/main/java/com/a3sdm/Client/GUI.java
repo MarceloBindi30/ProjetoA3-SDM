@@ -1,6 +1,7 @@
 package com.a3sdm.Client;
 
 import java.awt.Font;
+import java.io.IOException;
 import java.net.Socket;
 import com.a3sdm.Jogos.*;
 

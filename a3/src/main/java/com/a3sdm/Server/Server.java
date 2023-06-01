@@ -40,11 +40,11 @@ public class Server {
             
             for (Player player : playerList){
                 if (player.getNumbOfPlayers() != 1){
-                    if(player.getJogo() == 1){ //Roda o ImparPar
+                    if(player.getJogo() == 1){ //Roda o ImparPar SinglePlayer
                         addPlayer(player,1);
-                    }else if(player.getJogo() == 2){//Roda o jogo da velha
+                    }else if(player.getJogo() == 2){//Roda o jogo da velha SinglePlayer
                         addPlayer(player,2);
-                    }else if(player.getJogo() == 3){//Roda o Pedra/Papel/tesoura
+                    }else if(player.getJogo() == 3){//Roda o Pedra/Papel/tesoura SinglePlayer
                         addPlayer(player,3);
                     }
                 }else{

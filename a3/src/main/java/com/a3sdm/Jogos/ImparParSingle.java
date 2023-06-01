@@ -37,9 +37,9 @@ public class ImparParSingle extends JFrame{
         setVisible(true); 
     }
 
-    // public ImparPar(Socket player1){
-    //     this.player1 = player1;
-    // }
+    public ImparParSingle(Socket player1){
+        this.player1 = player1;
+    }
 
     public void PlayerVSCPU() throws IOException{
         Random random = new Random();
