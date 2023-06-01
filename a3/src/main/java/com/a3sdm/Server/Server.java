@@ -12,7 +12,7 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 
 public class Server {
-    private static List<Player> playerList = new ArrayList();
+    private static List<Player> playerList = new ArrayList<>();
     private static List<Socket> availablePlayers = new ArrayList<>();
     private static ServerThread GameThread = null;
 

@@ -5,6 +5,7 @@ import java.net.Socket;
 
 import com.a3sdm.Jogos.ImparPar;
 import com.a3sdm.Jogos.JogoDaVelha;
+import com.a3sdm.Jogos.JogoDaVelhaPvP;
 
 
 public class ServerThread extends Thread{
@@ -13,11 +14,12 @@ public class ServerThread extends Thread{
     private int jogo;
     private ImparPar imparPar;
     private JogoDaVelha jogoDaVelha;
+    private JogoDaVelhaPvP jogoDaVelhaPvP;
 
     //Se jogo = 1, então Impar ou Par, se jogo = 2, então jogo da velha
-     public ServerThread(Socket player1, Socket player2,int jogo){
+     public ServerThread(Socket player1, Socket player22,int jogo){
          this.player1 = player1;
-         this.player2 = player2;
+         this.player2 = player22;
          this.jogo = jogo;
      }
 
