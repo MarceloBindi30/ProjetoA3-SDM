@@ -9,7 +9,7 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 
 public class Server {
-    private static List<Player> playerList = new ArrayList();
+    private static List<Player> playerList = new ArrayList<>();
     private static List<Socket> availablePlayers = new ArrayList<>();
     private static ServerThread GameThread = null;
 
@@ -64,7 +64,7 @@ public class Server {
             if (availablePlayers.size() >= 2) {
                 Socket player1 = availablePlayers.remove(0);
                 Socket player2 = availablePlayers.remove(0);
-                GameThread = new ServerThread(player1, player2,jogo);
+                GameThread = new ServerThread(player1, player2, jogo);
             } else {
                 while (availablePlayers.size() < 2) {
                     try {
