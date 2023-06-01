@@ -18,7 +18,7 @@ public class GUI extends JFrame{
     JButton button3;
     JButton button4;
     JLabel label1;
-    private ImparPar imparPar;
+    private ImparParSingle imparPar;
 
     GUI(){
 
@@ -30,13 +30,13 @@ public class GUI extends JFrame{
         //button1 impar par vs bot
         button1 = new JButton();
         button1.setBounds(250, 300, 200, 100);
-        button1.addActionListener(e -> imparPar = new ImparPar());
+        button1.addActionListener(e -> imparPar = new ImparParSingle());
         button1.setText("Par ou Ímpar (Vs. Bot)"); 
         button1.setFocusable(false);
         //button2
         button2 = new JButton();
         button2.setBounds(250, 450, 200, 100);
-        button2.addActionListener(e -> System.out.println("Vitin eh  gay"));
+        button2.addActionListener(e -> System.out.println(""));
         button2.setText("Par ou Ímpar (Vs. Player)");
         button2.setFocusable(false);
        
@@ -50,7 +50,7 @@ public class GUI extends JFrame{
         //button4
         button4 = new JButton();
         button4.setBounds(550, 450, 200, 100);
-        button4.addActionListener(e -> System.out.println("Vitin eh  gay"));
+        button4.addActionListener(e -> System.out.println(""));
         button4.setText("Jogo da Velha (Vs. Player)");
         button4.setFocusable(false);
 
