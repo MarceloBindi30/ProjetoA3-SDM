@@ -16,7 +16,6 @@ public class ThreadMultiplayer extends Thread{
         this.player1 = player1;
         this.player2 = player2;
         this.Jogo = player1.getJogo();
-        
     }
 
     private void ModoJogoPVP() throws IOException{
@@ -34,7 +33,11 @@ public class ThreadMultiplayer extends Thread{
 
     @Override
     public void run() {
-        
+        try {
+            ModoJogoPVP();
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
     }
 
 

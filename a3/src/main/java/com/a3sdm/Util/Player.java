@@ -1,13 +1,15 @@
 package com.a3sdm.Util;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
 
-public class Player {
+public class Player implements Runnable{
     private int jogo;
     private int numbOfPlayers;
     private Socket socketPlayer;
@@ -116,6 +118,12 @@ public class Player {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void run() {
+        sendMessage(socketPlayer,"Nova conexão recebida");
+        System.out.println("Nova conexão recebida");
     }
 
 }

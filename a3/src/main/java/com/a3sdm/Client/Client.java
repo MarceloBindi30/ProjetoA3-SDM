@@ -1,9 +1,12 @@
 package com.a3sdm.Client;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
@@ -17,25 +20,22 @@ public class Client {
         Scanner scanner;
         String mensagem = "";
 
-        //TO DO
-        //socketClient.getInetAddress().getHostAddress()
         
         try {
             // Conectando ao servidor
             Socket socket = new Socket(serverIP, serverPort);
-            System.out.println("Conectado ao servidor");
-
+            if(socket != null){
+                System.out.println("Conectado ao servidor: " + serverIP + " " + serverPort);
+            }
             // Obtém streams de entrada e saída para comunicação
             InputStream inputStream = socket.getInputStream();
             OutputStream outputStream = socket.getOutputStream();
-            
+
             String msg = "";
             try{
                 PrintStream printStream = new PrintStream(socket.getOutputStream());
                 scanner = new Scanner(socket.getInputStream());
                 teclado = new Scanner(System.in);
-
-                while(socket.isConnected()){
 
                 byte[] buffer = new byte[1024];
                 int bytesRead = inputStream.read(buffer);
@@ -47,9 +47,8 @@ public class Client {
                 printStream.println(playerChoice);
 
 
-                }
-
-            }catch(Exception e){
+            }
+            catch(Exception e){
                 System.out.println("Erro na troca de dados");
             }
 

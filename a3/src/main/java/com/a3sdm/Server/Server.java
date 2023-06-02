@@ -19,47 +19,26 @@ public class Server {
     public static void main(String[] args) throws IOException {
         ServerSocket serverSocket;
         int port = 8080;
-        Multiplayer multiplayer1 = new Multiplayer();
-        Multiplayer multiplayer2 = new Multiplayer();
-        Multiplayer multiplayer3 = new Multiplayer();
-        //List<Socket> clientList = new ArrayList();
         
         try{
-        
         //Criação do ServerSocket
-        serverSocket = new ServerSocket(port);
-        System.out.println("Aguardando jogadores...");
+            serverSocket = new ServerSocket(port);
+            System.out.println("Aguardando jogadores...");
 
-        while(true){
-            Socket clientSocket = serverSocket.accept();
-            System.out.println("Nova conexão estabelecida: " + clientSocket.getInetAddress());
-
-            // Recepção de cliente e criação de Player
-            playerList.add(new Player(clientSocket));
-            // Player aguardando na lista
-            
-            for (Player player : playerList){
-                if (player.getNumbOfPlayers() != 1){
-                    if(player.getJogo() == 1){ //Roda o ImparPar SinglePlayer
-                        addPlayer(player,1);
-                    }else if(player.getJogo() == 2){//Roda o jogo da velha SinglePlayer
-                        addPlayer(player,2);
-                    }else if(player.getJogo() == 3){//Roda o Pedra/Papel/tesoura SinglePlayer
-                        addPlayer(player,3);
-                    }
-                }else{
-                    if(player.getJogo() == 1){ //Add na lista de espera imparpar
-                        multiplayer1.addPlayer(player);
-                    }else if(player.getJogo() == 2){//Add na lista de espera jogo da velha
-                        multiplayer2.addPlayer(player);
-                    }else if(player.getJogo() == 3){//Add na lista de espera pedra/papel/tesoura
-                        multiplayer3.addPlayer(player);
-                    }
+            while(true){
+                Socket clientSocket = serverSocket.accept();
+                if(clientSocket != null){
+                    System.out.println("Nova conexão estabelecida: " + clientSocket.getInetAddress());
                 }
+                Player p = new Player(clientSocket);
+                ThreadRecepcao t1 = new ThreadRecepcao(p);
+                t1.run();
+
+            // Socket clientSocket = serverSocket.accept();
+            // ClientHandler clientHandler = new ClientHandler(clientSocket);
+            // Thread clientThread = new Thread(clientHandler);
+            // clientThread.start();
             }
-
-        }
-
         } catch (Exception e){
             System.out.println("Deu erro:" + e.getMessage());
         } 
@@ -74,14 +53,4 @@ public class Server {
         }
     }
 
-    /*************************************************************************************/
-    //VERIFICAR NECESSIDADE DE CRIAR OUTRA CLASSE PARA GERENCIAR FILA DE ESPERA DO SERVER//
-    /*************************************************************************************/
-
-    public static synchronized void addPlayer(Player player, int jogo) {
-        GameThread = new ThreadSingle(player.getSocketPlayer(),jogo); //ESCOLHEU JOGAR SINGLEPLAYER
-        GameThread.start(); //START A THREAD
-    }
-
-    
 }
