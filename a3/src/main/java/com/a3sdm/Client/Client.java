@@ -10,9 +10,13 @@ public class Client {
     public static void main(String[] args) {
         //GUI Menu = new GUI();
         //Board teste = new Board();
+        //IPAndPortScreen tela = new IPAndPortScreen();
         String host = "localhost"; // Endereço IP do servidor
         int port = 8888; // Porta do servidor
         String requestAnswer = "|Request_Answer|";
+
+        System.out.println(host);
+        System.out.println(port);
 
         try {
             Socket socket = new Socket(host, port);
