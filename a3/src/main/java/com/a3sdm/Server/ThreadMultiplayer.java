@@ -26,7 +26,7 @@ public class ThreadMultiplayer extends Thread {
         if (player.getJogo() == 1) {
             playersMapImP.put(player.getId(), player);
             playersQueueImP.add(player);
-            player.sendMessage("Vc esta na fila");
+            player.sendMessage("Você está na fila: aguardando próximos jogadores.");
         } else {
             playersMapVelha.put(player.getId(), player);
             playersQueueVelha.add(player);

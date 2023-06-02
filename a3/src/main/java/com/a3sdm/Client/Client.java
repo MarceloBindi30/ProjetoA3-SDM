@@ -14,7 +14,6 @@ public class Client {
         int port = 8888; // Porta do servidor
         String requestAnswer = "|Request_Answer|";
 
-        
         try {
             Socket socket = new Socket(host, port);
             System.out.println("Conectado ao servidor " + host + " na porta " + port);
