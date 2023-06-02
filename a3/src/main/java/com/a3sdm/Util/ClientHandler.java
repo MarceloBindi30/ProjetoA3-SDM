@@ -5,10 +5,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 import com.a3sdm.Server.ThreadMultiplayer;
 import com.a3sdm.Server.ThreadSingle;
@@ -16,15 +12,15 @@ import com.a3sdm.Server.ThreadSingle;
 public class ClientHandler implements Runnable {
     private Socket playerSocket;
     private Long id;
-    private int jogo, qtJogador;    
+    private int jogo, qtJogador;
     private BufferedReader reader;
     private PrintWriter writer;
     private String playerName, jogoTemp, qtJogadorTemp;
     private ClientHandler opponent;
     private boolean isPlayerTurn;
-    //private static Map<Long, ClientHandler> playersMap = new HashMap<>();
-    //private static Queue<ClientHandler> playersQueue = new ConcurrentLinkedQueue<>();
-
+    // private static Map<Long, ClientHandler> playersMap = new HashMap<>();
+    // private static Queue<ClientHandler> playersQueue = new
+    // ConcurrentLinkedQueue<>();
 
     public ClientHandler(long id, Socket playerSocket) throws IOException {
         this.id = id;
@@ -33,8 +29,6 @@ public class ClientHandler implements Runnable {
         writer = new PrintWriter(playerSocket.getOutputStream(), true);
         isPlayerTurn = false;
     }
-    
-    
 
     @Override
     public void run() {
@@ -47,33 +41,33 @@ public class ClientHandler implements Runnable {
             // String playerName;
 
             // while (true) {
-            //     playerName = requestAnswer();
+            // playerName = requestAnswer();
 
-            //     if (playerName == null) {
-            //         return; // conexão encerrada
-            //     }
+            // if (playerName == null) {
+            // return; // conexão encerrada
+            // }
 
-            //     if (playerName.isBlank()) {
-            //         continue;
-            //     }
+            // if (playerName.isEmpty()) {
+            // continue;
+            // }
 
-            //     // Verifica se o nome está disponível
-            //     if (!playersMap.containsKey(playerName)) {
-            //         break;
-            //     }
+            // // Verifica se o nome está disponível
+            // if (!playersMap.containsKey(playerName)) {
+            // break;
+            // }
 
-            //     sendMessage("Xiii, esse nome já foi escolhido por outra pessoa...");
-            //     sendMessage("Vou precisar que você escolha outro :P");
+            // sendMessage("Xiii, esse nome já foi escolhido por outra pessoa...");
+            // sendMessage("Vou precisar que você escolha outro :P");
             // }
 
             sendMessage("Defina seu jogo: ");
-            while (true) {              
+            while (true) {
                 jogoTemp = requestAnswer();
                 if (jogoTemp == null) {
                     return; // conexão encerrada
                 }
 
-                if(jogoTemp.equals("1") || jogoTemp.equals("2")){
+                if (jogoTemp.equals("1") || jogoTemp.equals("2")) {
                     break;
                 }
             }
@@ -85,39 +79,38 @@ public class ClientHandler implements Runnable {
                     return; // conexão encerrada
                 }
 
-                if(qtJogadorTemp.equals("1") || qtJogadorTemp.equals("2")){
+                if (qtJogadorTemp.equals("1") || qtJogadorTemp.equals("2")) {
                     break;
                 }
             }
-        
-            //this.playerName = playerName;
+
+            // this.playerName = playerName;
 
             if (jogoTemp.equals("1")) {
                 this.jogo = 1;
-            }else{
+            } else {
                 this.jogo = 2;
             }
             if (qtJogadorTemp.equals("1")) {
                 this.qtJogador = 1;
-            }else{
+            } else {
                 this.qtJogador = 2;
             }
-            
 
-            if(qtJogador == 1){
+            if (qtJogador == 1) {
                 ThreadSingle t1 = new ThreadSingle(this);
                 t1.run();
-            }else{
+            } else {
                 ThreadMultiplayer t2 = new ThreadMultiplayer(this);
                 t2.run();
             }
 
-            //playersMap.put(id, this);
-            //playersQueue.add(this);
-        }catch(Exception e){
-
+            // playersMap.put(id, this);
+            // playersQueue.add(this);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    
+
     }
 
     public Long getId() {
@@ -136,7 +129,7 @@ public class ClientHandler implements Runnable {
         return playerSocket;
     }
 
-    public boolean getIsPlayerTurn(){
+    public boolean getIsPlayerTurn() {
         return isPlayerTurn;
     }
 
@@ -144,8 +137,7 @@ public class ClientHandler implements Runnable {
         writer.println(message);
     }
 
-    
-    private String requestAnswer() throws IOException {
+    public String requestAnswer() throws IOException {
         String resp;
         String requestAnswer = "|Request_Answer|";
         sendMessage(requestAnswer);
@@ -166,6 +158,9 @@ public class ClientHandler implements Runnable {
 
     public void setPlayerTurn(boolean isPlayerTurn) {
         this.isPlayerTurn = isPlayerTurn;
+    }
+
+    public void sendWelcomeMsg() {
         if (isPlayerTurn) {
             sendMessage("Qual opção você escolhe? Impar ou Par? (ou Cansei para sair)");
         } else {

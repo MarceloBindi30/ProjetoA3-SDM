@@ -11,6 +11,7 @@ import java.util.Random;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 public class JogoDaVelhaPvP extends JFrame {
     private JButton[][] botoes;
@@ -142,11 +143,11 @@ public class JogoDaVelhaPvP extends JFrame {
         jogoAtivo = true;
     }
 
-    // public static void main(String[] args) {
-    //     SwingUtilities.invokeLater(new Runnable() {
-    //         public void run() {
-    //             new JogoDaVelhaPvP();
-    //         }
-    //     });
-    // }
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new JogoDaVelhaPvP();
+            }
+        });
+    }
 }
