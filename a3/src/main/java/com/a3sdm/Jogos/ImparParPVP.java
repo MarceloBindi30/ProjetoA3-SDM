@@ -1,84 +1,119 @@
-package com.a3sdm.Jogos;
-import java.awt.*;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.net.Socket;
-import java.util.Random;
-import java.util.Scanner;
+// package com.a3sdm.Jogos;
+// import java.awt.Color;
+// import java.io.BufferedReader;
+// import java.io.IOException;
+// import java.io.InputStream;
+// import java.io.InputStreamReader;
+// import java.io.OutputStream;
+// import java.io.PrintWriter;
+// import java.net.Socket;
+// import java.util.Random;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
+// import javax.swing.JFrame;
+// import javax.swing.JTextField;
 
-public class ImparParPVP extends JFrame{
-    private Socket player1;
-    private Socket player2;
-    private JTextField campoTexto;
+// import com.a3sdm.Util.ClientHandler;
 
-    public ImparParPVP(){
-        super("Par ou Ímpar");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLayout(null);
-		setSize(1000,700);
-        setBackground(Color.cyan); 
-        campoTexto = new JTextField(); 
-        campoTexto.setVisible(true); 
-        campoTexto.setBounds(250, 450, 200, 100);
-        setLocationRelativeTo(null);
-        add(campoTexto);
+// public class ImparParPVP extends JFrame{
+//     private ClientHandler player1;
+//     private ClientHandler player2;
+//     private JTextField campoTexto;
+//     private BufferedReader reader1, reader2;
+//     private PrintWriter writer1, writer2;
 
-        setVisible(true); 
-    }
+//     public ImparParPVP(){
+//         super("Par ou Ímpar");
+//         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+// 		setLayout(null);
+// 		setSize(1000,700);
+//         setBackground(Color.cyan); 
+//         campoTexto = new JTextField(); 
+//         campoTexto.setVisible(true); 
+//         campoTexto.setBounds(250, 450, 200, 100);
+//         setLocationRelativeTo(null);
+//         add(campoTexto);
 
-    public ImparParPVP (Socket player1, Socket player2){
-        this.player1 = player1;
-        this.player2 = player2;
-    }
+//         setVisible(true); 
+//     }
 
-    public void PlayerVSPlayer() throws IOException{
-        // Obtém streams de entrada e saída para comunicação com os jogadores
-        InputStream player1InputStream = player1.getInputStream();
-        OutputStream player1OutputStream = player1.getOutputStream();
+//     public ImparParPVP (ClientHandler player1, ClientHandler player2) throws IOException{
+//         this.player1 = player1;
+//         this.player2 = player2;
+//     }
 
-        InputStream player2InputStream = player2.getInputStream();
-        OutputStream player2OutputStream = player2.getOutputStream();
+//     public void PlayerVSPlayer() throws IOException{
+//         String choice;
+//         while ((choice = requestAnswer()) != null) {
+//             if (choice.isEmpty()) {
+//                 continue;
+//             }
 
-        // Gera um número aleatório para a escolha do servidor (ímpar ou par)
-        Random random = new Random();
-        boolean serverIsOdd = random.nextBoolean();
+//             if (player1.getIsPlayerTurn()) {
+//                 if (choice.equalsIgnoreCase("par") || choice.equalsIgnoreCase("impar")) {
+//                     handlePlayerGuess(choice);
+//                 } else if (choice.equalsIgnoreCase("cansei")) {
+//                     sendMessage("Tá sei... Cansou nada... Você arregou isso sim! rsrs");
+//                     break;
+//                 } else {
+//                     sendMessage("Opção inválida seu oreia seca!!!");
+//                     sendMessage("As opções válidas são: par e impar");
+//                     sendMessage("Ou digite 'cansei' para sair");
+//                 }
+//             } else {
+//                 sendMessage("Opa! Não é sua vez oreia! Não seja ansioso rsrs");
+//             }
+//         }
 
-        // Envia a escolha do servidor para os jogadores
-        String serverChoice = serverIsOdd ? "ímpar" : "par";
-        player1OutputStream.write(serverChoice.getBytes());
-        player2OutputStream.write(serverChoice.getBytes());
+//     }
 
-        // Recebe as escolhas dos jogadores
-        byte[] buffer = new byte[1024];
+//     private void handlePlayerGuess(String guess) {
+//         int playerNumber = generateRandomNumber();
+//         int opponentNumber = player1.getOpponent().generateRandomNumber();
+//         Long opponentName = player1.getOpponent().getId();
+//         int sum = playerNumber + opponentNumber;
+//         String youWonMessage = "Parabéns! Você ganhou!!!";
+//         String youLostMessage = "Xiiiiii! Você perdeu!!!";
 
-        int bytesRead1 = player1InputStream.read(buffer);
-        String player1Choice = new String(buffer, 0, bytesRead1);
+//         String result = (sum % 2 == 0) ? "par" : "impar";
+//         sendMessage("Você escolheu " + guess + " e seu número aleatório é " + playerNumber);
+//         sendMessage("Como o número aleatório do jogador " + opponentName + " é " + opponentNumber);
+//         sendMessage("O resultado foi " + result);
 
-        int bytesRead2 = player2InputStream.read(buffer);
-        String player2Choice = new String(buffer, 0, bytesRead2);
+//         player1.getOpponent().sendMessage(player1 + " escolheu " + guess + " e o número aleatório dele é " + playerNumber);
+//         player1.getOpponent().sendMessage("Como o seu número aleatório é " + opponentNumber);
+//         player1.getOpponent().sendMessage("O resultado foi " + result);
 
-        // Verifica quem ganhou
-        int sum = Integer.parseInt(player1Choice) + Integer.parseInt(player2Choice);
-        boolean isSumOdd = sum % 2 != 0;
-        boolean player1Wins = (isSumOdd && serverIsOdd) || (!isSumOdd && !serverIsOdd);
+//         if (guess.equalsIgnoreCase(result)) {
+//             sendMessage(youWonMessage);
+//             player1.getOpponent().sendMessage(youLostMessage);
+//         } else {
+//             sendMessage(youLostMessage);
+//             player1.getOpponent().sendMessage(youWonMessage);
+//         }
 
-        // Envia o resultado para os jogadores
-        String result = player1Wins ? "Jogador 1 ganhou!" : "Jogador 2 ganhou!";
-        player1OutputStream.write(result.getBytes());
-        player2OutputStream.write(result.getBytes());
+//         isPlayerTurn = false;
+//         opponent.setPlayerTurn(true);
+//     }
 
-        // Fecha os sockets
-        player1.close();
-        player2.close();
 
-    }
+//     private void sendMessage(String message) {
+//         writer.println(message);
+//     }
+    
+//     private String requestAnswer() throws IOException {
+//         String resp;
+//         String requestAnswer = "|Request_Answer|";
+//         sendMessage(requestAnswer);
+//         resp = reader.readLine();
+//         return resp;
+//     }
+
+//     private int generateRandomNumber() {
+//         return (int) (Math.random() * 6) + 1;
+//     }
+
+// }
+
 
 
     // public void PlayerVSCPUSemSocket() throws IOException{
@@ -121,14 +156,3 @@ public class ImparParPVP extends JFrame{
     //     scanner.close();
          
     // }
-
-    private static void sendMessage(Socket socket, String message) {
-        try {
-            PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
-            writer.println(message);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-}

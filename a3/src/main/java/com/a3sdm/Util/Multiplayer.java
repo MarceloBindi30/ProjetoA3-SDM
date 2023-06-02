@@ -94,8 +94,8 @@ public class Multiplayer {
 
         @Override
         public void run() {
-            ThreadMultiplayer multiplayer = new ThreadMultiplayer(players.get(0), players.get(1));
-            multiplayer.run();
+            //ThreadMultiplayer multiplayer = new ThreadMultiplayer(players.get(0), players.get(1));
+            //multiplayer.run();
             activeGames.remove(this);
         }
     }

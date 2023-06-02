@@ -20,9 +20,9 @@ public class JogoDaVelhaPvP extends JFrame {
     private Socket player1;
     private Socket player2;
     
-    public JogoDaVelhaPvP(Socket player12, Socket player22){
-        this.player1 = player12;
-        this.player2 = player22;
+    public JogoDaVelhaPvP(Socket player1, Socket player2){
+        this.player1 = player1;
+        this.player2 = player2;
 
     }
 
