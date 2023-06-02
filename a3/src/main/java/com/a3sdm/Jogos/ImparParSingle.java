@@ -9,18 +9,26 @@ import java.net.Socket;
 import java.util.Random;
 import java.util.Scanner;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import com.a3sdm.Client.GUI;
 
-public class ImparParSingle extends JFrame{
+public class ImparParSingle extends JFrame implements ActionListener{
     private Socket player1;
     private Socket player2;
+    Random random = new Random();
     private JTextField campoTexto;
     GUI Menu;
+    JButton butaum;
+    private JLabel pc;
+    private int numPlayer;
+    private JLabel result;
+    private int numPC = random.nextInt(5) + 1;
 
     // public ImparPar(Socket player1,Socket player2){
     //     this.player1 = player1;
@@ -30,8 +38,9 @@ public class ImparParSingle extends JFrame{
         super("Par ou Ímpar");
         setVisible(true);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setLayout(null);
-		setSize(250,250);
+        setLocationRelativeTo(null);
+		setLayout(new GridLayout(4, 1));
+		setSize(300,250);
         
         //volta pro menu quando fecha o jogo
         addWindowListener(new WindowAdapter() {
@@ -47,13 +56,39 @@ public class ImparParSingle extends JFrame{
         });
 
         campoTexto = new JTextField(); 
-        campoTexto.setVisible(true); 
-        campoTexto.setBounds(400, 300, 150, 50);
-        setLocationRelativeTo(null);
-        add(campoTexto);
+        pc = new JLabel();
+        result = new JLabel();
+        butaum = new JButton("Responder");
 
-         
-    }
+        butaum.setVisible(true);
+        butaum.addActionListener(this);
+        // butaum.addActionListener(e -> pc.setVisible(true));
+        // butaum.addActionListener(e -> result.setVisible(true));
+        butaum.setFocusable(false);
+
+        pc.setText(Integer.toString(numPC));
+        pc.setVisible(false);
+        result.setVisible(false);
+        result.setText("");
+
+        campoTexto.setVisible(true);
+        
+        add(campoTexto);
+        add(butaum);
+        add(pc);
+        add(result);
+
+        
+
+        // if ((numPC + numPlayer) % 2 == 0 ){
+        //     result.setText("Par!");
+        // }
+        // else{
+        //     result.setText("Ímpar!");
+        // }
+
+        }
+    
 
     public ImparParSingle(Socket player1){
         this.player1 = player1;
@@ -156,6 +191,30 @@ public class ImparParSingle extends JFrame{
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        
+        if(e.getSource() == butaum){
+
+            pc.setVisible(true);
+
+            numPlayer = Integer.parseInt(campoTexto.getText());
+
+            if ((numPC + numPlayer) % 2 == 0 ){
+                result.setText("Par!");
+            }
+            else{
+                result.setText("Ímpar!");
+            }
+
+            result.setVisible(true);
+            
+            numPC = 0;
+        }
+        
     }
 
 }
