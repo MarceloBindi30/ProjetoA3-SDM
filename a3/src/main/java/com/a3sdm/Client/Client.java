@@ -26,13 +26,13 @@ public class Client {
             String serverMessage;
             while ((serverMessage = serverReader.readLine()) != null) {
                 if (serverMessage.equals(requestAnswer)) {
-                    int x = 5; // wait 2 seconds at most
+                    int x = 5; // wait 5 seconds at most
                     long startTime = System.currentTimeMillis();
                     while ((System.currentTimeMillis() - startTime) < x * 1000 && !reader.ready()) { }
                     if (reader.ready()) {
                         writer.println(reader.readLine());
                     } else {
-                        writer.println();
+                        writer.println("");
                     }
                 } else {
                     System.out.println(serverMessage);
