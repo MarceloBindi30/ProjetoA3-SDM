@@ -20,6 +20,7 @@ public class ThreadSingle extends Thread{
         if (jogo == 1){
                 imparPar = new ImparParSingle(handler.getPlayerSocket());
                 imparPar.PlayerVSCPUOutroJeito();
+                handler.run();
         }else if(jogo == 2 ){
                 new JogoDaVelha(); // Abre um novo jogo da velha
         }else{

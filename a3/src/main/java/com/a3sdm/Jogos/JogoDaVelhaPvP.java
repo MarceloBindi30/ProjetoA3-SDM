@@ -5,8 +5,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.Socket;
-import java.util.Random;
+// import java.net.Socket;
+// import java.util.Random;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,15 +17,15 @@ public class JogoDaVelhaPvP extends JFrame {
     private JButton[][] botoes;
     private char jogadorAtual;
     private boolean jogoAtivo;
-    private Random rdm = new Random();
-    private Socket player1;
-    private Socket player2;
+    // private Random rdm = new Random();
+    // private Socket player1;
+    // private Socket player2;
     
-    public JogoDaVelhaPvP(Socket player1, Socket player2){
-        this.player1 = player1;
-        this.player2 = player2;
+    // public JogoDaVelhaPvP(Socket player1, Socket player2){
+    //     this.player1 = player1;
+    //     this.player2 = player2;
 
-    }
+    // }
 
     public JogoDaVelhaPvP() {
         super("Jogo da Velha");

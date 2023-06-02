@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 
 public class ImparParSingle extends JFrame{
-    private Socket player1;
+    //private Socket player1;
     private JTextField campoTexto;
     private BufferedReader reader;
     private PrintWriter writer;
@@ -33,7 +33,7 @@ public class ImparParSingle extends JFrame{
     }
 
     public ImparParSingle(Socket player1) throws IOException{
-        this.player1 = player1;
+        //this.player1 = player1;
         this.reader = new BufferedReader(new InputStreamReader(player1.getInputStream()));
         this.writer = new PrintWriter(player1.getOutputStream(), true);
     }
