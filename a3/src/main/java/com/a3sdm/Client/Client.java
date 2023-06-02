@@ -2,65 +2,49 @@ package com.a3sdm.Client;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.Scanner;
 
 public class Client {
     public static void main(String[] args) {
         //GUI Menu = new GUI();
         //Board teste = new Board();
-        String serverIP = "localhost"; // Endereço IP do servidor
-        int serverPort = 8080; // Porta do servidor
-        Scanner teclado = new Scanner(System.in);
-        Scanner scanner;
-        String mensagem = "";
+        String host = "localhost"; // Endereço IP do servidor
+        int port = 8888; // Porta do servidor
+        String requestAnswer = "|Request_Answer|";
 
         
         try {
-            // Conectando ao servidor
-            Socket socket = new Socket(serverIP, serverPort);
-            if(socket != null){
-                System.out.println("Conectado ao servidor: " + serverIP + " " + serverPort);
-            }
-            // Obtém streams de entrada e saída para comunicação
-            InputStream inputStream = socket.getInputStream();
-            OutputStream outputStream = socket.getOutputStream();
+            Socket socket = new Socket(host, port);
+            System.out.println("Conectado ao servidor " + host + " na porta " + port);
 
-            String msg = "";
-            try{
-                PrintStream printStream = new PrintStream(socket.getOutputStream());
-                scanner = new Scanner(socket.getInputStream());
-                teclado = new Scanner(System.in);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            BufferedReader serverReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
 
-                byte[] buffer = new byte[1024];
-                int bytesRead = inputStream.read(buffer);
-                String serverChoice = new String(buffer, 0, bytesRead);
-                System.out.println("Servidor: " + serverChoice);
-
-                scanner = new Scanner(System.in);
-                String playerChoice = scanner.nextLine();
-                printStream.println(playerChoice);
-
-
-            }
-            catch(Exception e){
-                System.out.println("Erro na troca de dados");
+            String serverMessage;
+            while ((serverMessage = serverReader.readLine()) != null) {
+                if (serverMessage.equals(requestAnswer)) {
+                    int x = 5; // wait 2 seconds at most
+                    long startTime = System.currentTimeMillis();
+                    while ((System.currentTimeMillis() - startTime) < x * 1000 &&
+                            !reader.ready()) {
+                    }
+                    if (reader.ready()) {
+                        writer.println(reader.readLine());
+                    } else {
+                        writer.println("");
+                    }
+                } else {
+                    System.out.println(serverMessage);
+                }
             }
 
-
-            // Fechando conexão
             socket.close();
-            System.out.println("Conexão encerrada");
-
         } catch (IOException e) {
             e.printStackTrace();
         }
-        teclado.close();
     }
 }
 

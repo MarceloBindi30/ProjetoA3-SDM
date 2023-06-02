@@ -1,27 +1,28 @@
 package com.a3sdm.Jogos;
-import java.awt.*;
+import java.awt.Color;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Random;
 import java.util.Scanner;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 public class ImparParSingle extends JFrame{
     private Socket player1;
-    private Socket player2;
     private JTextField campoTexto;
-
+    private BufferedReader reader;
+    private PrintWriter writer;
+    
     // public ImparPar(Socket player1,Socket player2){
     //     this.player1 = player1;
     //     this.player2 = player2;
     // }
+
     public ImparParSingle(){
         super("Par ou Ímpar");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -37,35 +38,33 @@ public class ImparParSingle extends JFrame{
         setVisible(true); 
     }
 
-    public ImparParSingle(Socket player1){
+    public ImparParSingle(Socket player1) throws IOException{
         this.player1 = player1;
+        this.reader = new BufferedReader(new InputStreamReader(player1.getInputStream()));
+        this.writer = new PrintWriter(player1.getOutputStream(), true);
     }
+
 
     public void PlayerVSCPU() throws IOException{
         Random random = new Random();
         int numeroAleatorio = random.nextInt(5) + 1;
-        
-        sendMessage(player1,"Escolha um número de 1 a 5");
-        
-        // Obtém streams de entrada e saída para comunicação com os jogadores
-        InputStream player1InputStream = player1.getInputStream();
-        Scanner scanner = new Scanner(player1InputStream);
+
         // Gera um número aleatório para a escolha do servidor (ímpar ou par)
         boolean serverIsOdd = random.nextBoolean();
-
         // Envia a escolha do servidor para os jogadores
         String serverChoice = serverIsOdd ? "ímpar" : "par";
-        sendMessage(player1,"A soma deve ser: " + serverChoice);
+        sendMessage("A soma deve ser: " + serverChoice);
+        sendMessage("Escolha um número de 1 a 5");
+        String respostaPlayer = requestAnswer();
 
         boolean canContinue = true;
-        String respostaPlayer = scanner.nextLine();
 
         while (canContinue) {
             if (respostaPlayer.matches("\\d+") && Integer.parseInt(respostaPlayer) > 0 && Integer.parseInt(respostaPlayer) < 6) {
                 canContinue = false;
             } else {
-                sendMessage(player1,"Entrada inválida. Por favor, insira um número entre 1 e 5:" + respostaPlayer);
-                respostaPlayer = scanner.nextLine();
+                sendMessage("Entrada inválida. Por favor, insira um número entre 1 e 5:" + respostaPlayer);
+                respostaPlayer = requestAnswer();
             }
         }
 
@@ -77,18 +76,18 @@ public class ImparParSingle extends JFrame{
         // Envia o resultado para os jogadores
         String result = player1Wins ? "Jogador 1 ganhou!" : "Servidor ganhou!";
         sum = Integer.parseInt(respostaPlayer) + (numeroAleatorio);
-        sendMessage(player1,"A soma deu " + sum + "\n" + result);
+        sendMessage("A soma deu " + sum + "\n" + result);
         
-        String message = "O que gostaria de fazer agora? \n" +
-           "1 - Jogar Novamente \n" +
-           "2 - Voltar para o menu principal \n" +
-           "3 - Sair";
-        sendMessage(player1,message);
+        // String message = "O que gostaria de fazer agora? \n" +
+        //    "1 - Jogar Novamente \n" +
+        //    "2 - Voltar para o menu principal \n" +
+        //    "3 - Sair";
+        // sendMessage(message);
 
-        respostaPlayer = scanner.nextLine();
-        canContinue = true;
+        // respostaPlayer = requestAnswer();
+        // canContinue = true;
 
-        }
+    }
 
     public void PlayerVSCPUSemSocket() throws IOException{
         Random random = new Random();
@@ -131,13 +130,17 @@ public class ImparParSingle extends JFrame{
          
     }
 
-    private static void sendMessage(Socket socket, String message) {
-        try {
-            PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
-            writer.println(message);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private String requestAnswer() throws IOException {
+        String resp;
+        String requestAnswer = "|Request_Answer|";
+        sendMessage(requestAnswer);
+        resp = reader.readLine();
+        return resp;
     }
 
+    private void sendMessage(String message) {
+        writer.println(message);
+    }
+
+    
 }

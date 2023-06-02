@@ -6,10 +6,12 @@ import java.net.Socket;
 import com.a3sdm.Jogos.ImparParSingle;
 import com.a3sdm.Jogos.JogoDaVelha;
 import com.a3sdm.Jogos.JogoDaVelhaPvP;
+import com.a3sdm.Util.ClientHandler;
 import com.a3sdm.Util.Player;
 
 
 public class ThreadSingle extends Thread{
+    private ClientHandler handler;
     private Player p;
     private Socket player1;
     private int jogo;
@@ -26,11 +28,15 @@ public class ThreadSingle extends Thread{
 
     public ThreadSingle(Player player){
         this.p = player;
-   }
+    }
+
+    public ThreadSingle(ClientHandler c1){
+        this.handler = c1;
+    }
 
     public void ModoJogo(int jogo) throws IOException{
         if (jogo == 1){
-                imparPar = new ImparParSingle(p.getSocketPlayer());
+                imparPar = new ImparParSingle(handler.getPlayerSocket());
                 imparPar.PlayerVSCPU();
         }else if(jogo == 2 ){
                 jogoDaVelha = new JogoDaVelha(); // Abre um novo jogo da velha
@@ -46,7 +52,7 @@ public class ThreadSingle extends Thread{
     @Override
     public void run() {
         try {
-            ModoJogo(p.getJogo());
+            ModoJogo(handler.getJogo());
         } catch (IOException e) {
             e.printStackTrace();
         }
