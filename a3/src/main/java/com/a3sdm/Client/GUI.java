@@ -21,7 +21,7 @@ public class GUI extends JFrame{
     JLabel label1;
     private ImparParSingle imparPar;
 
-    GUI(){
+    public GUI(){
 
         //Recepcionar
         label1 = new JLabel("Seja bem-vindo a plataforma de jogos, selecione o jogo!");
@@ -32,12 +32,14 @@ public class GUI extends JFrame{
         button1 = new JButton();
         button1.setBounds(250, 300, 200, 100);
         button1.addActionListener(e -> imparPar = new ImparParSingle());
+        button1.addActionListener(e -> this.setVisible(false));;
         button1.setText("Par ou Ímpar (Vs. Bot)"); 
         button1.setFocusable(false);
         //button2
         button2 = new JButton();
         button2.setBounds(250, 450, 200, 100);
         button2.addActionListener(e -> System.out.println(""));
+        button2.addActionListener(e -> this.setVisible(false));
         button2.setText("Par ou Ímpar (Vs. Player)");
         button2.setFocusable(false);
        
@@ -45,6 +47,7 @@ public class GUI extends JFrame{
         button3 = new JButton();
         button3.setBounds(550, 300, 200, 100);
         button3.addActionListener(e -> jogoDaVelha = new JogoDaVelha());
+        button3.addActionListener(e -> this.setVisible(false));
         button3.setText("Jogo da Velha (Vs. Bot)");
         button3.setFocusable(false);
        
@@ -52,11 +55,12 @@ public class GUI extends JFrame{
         button4 = new JButton();
         button4.setBounds(550, 450, 200, 100);
         button4.addActionListener(e -> System.out.println(""));
+        button4.addActionListener(e -> this.setVisible(false));
         button4.setText("Jogo da Velha (Vs. Player)");
         button4.setFocusable(false);
 
 
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setLayout(null);
 		this.setSize(1000,700);
 		this.setVisible(true);

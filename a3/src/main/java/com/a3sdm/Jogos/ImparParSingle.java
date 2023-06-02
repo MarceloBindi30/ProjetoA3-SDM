@@ -1,5 +1,6 @@
 package com.a3sdm.Jogos;
 import java.awt.*;
+import java.awt.event.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -13,10 +14,13 @@ import javax.swing.JFrame;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import com.a3sdm.Client.GUI;
+
 public class ImparParSingle extends JFrame{
     private Socket player1;
     private Socket player2;
     private JTextField campoTexto;
+    GUI Menu;
 
     // public ImparPar(Socket player1,Socket player2){
     //     this.player1 = player1;
@@ -24,17 +28,31 @@ public class ImparParSingle extends JFrame{
     // }
     public ImparParSingle(){
         super("Par ou Ímpar");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLayout(null);
-		setSize(1000,700);
-        setBackground(Color.cyan); 
+		setSize(250,250);
+        
+        //volta pro menu quando fecha o jogo
+        addWindowListener(new WindowAdapter() {
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+                
+                Menu = new GUI();
+                Menu.setVisible(true);
+
+            }
+
+        });
+
         campoTexto = new JTextField(); 
         campoTexto.setVisible(true); 
-        campoTexto.setBounds(250, 450, 200, 100);
+        campoTexto.setBounds(400, 300, 150, 50);
         setLocationRelativeTo(null);
         add(campoTexto);
 
-        setVisible(true); 
+         
     }
 
     public ImparParSingle(Socket player1){

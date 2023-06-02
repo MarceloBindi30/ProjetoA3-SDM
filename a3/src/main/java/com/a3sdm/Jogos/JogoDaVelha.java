@@ -2,9 +2,15 @@ package com.a3sdm.Jogos;
 
 
 import javax.swing.*;
+
+import com.a3sdm.Client.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.awt.event.WindowAdapter;
 import java.util.Random;
 
 public class JogoDaVelha extends JFrame {
@@ -12,13 +18,28 @@ public class JogoDaVelha extends JFrame {
     private char jogadorAtual;
     private boolean jogoAtivo;
     private Random rdm = new Random();
+    GUI Menu;
 
     public JogoDaVelha() {
         super("Jogo da Velha");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(300, 300);
         setLocationRelativeTo(null);
         setLayout(new GridLayout(3, 3));
+
+        //volta pro menu quando fecha o jogo
+        addWindowListener(new WindowAdapter() {
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+                
+                Menu = new GUI();
+                Menu.setVisible(true);
+
+            }
+
+        });
 
         botoes = new JButton[3][3];
         jogadorAtual = 'X';
@@ -34,8 +55,10 @@ public class JogoDaVelha extends JFrame {
                 add(botao);
             }
         }
-
-        setVisible(true);
+        
+        
+        
+        
     }
 
     private class BotaoListener implements ActionListener {
