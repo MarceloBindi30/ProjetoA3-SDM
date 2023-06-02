@@ -13,6 +13,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
@@ -24,11 +25,13 @@ public class ImparParSingle extends JFrame implements ActionListener{
     Random random = new Random();
     private JTextField campoTexto;
     GUI Menu;
-    JButton butaum;
+    private String modo;
+    private JButton butaum;
     private JLabel pc;
     private int numPlayer;
     private JLabel result;
-    private int numPC = random.nextInt(5) + 1;
+    private int numPC; //random.nextInt(5) + 1;
+    private int eoq;
 
     // public ImparPar(Socket player1,Socket player2){
     //     this.player1 = player1;
@@ -42,6 +45,11 @@ public class ImparParSingle extends JFrame implements ActionListener{
 		setLayout(new GridLayout(4, 1));
 		setSize(300,250);
         
+        modo = JOptionPane.showInputDialog(null, "Você deseja ser Par ou Ímpar? (Letras minúsculas, sem acentos)", "Escolha de modo", 
+        JOptionPane.INFORMATION_MESSAGE);
+
+
+
         //volta pro menu quando fecha o jogo
         addWindowListener(new WindowAdapter() {
 
@@ -66,7 +74,7 @@ public class ImparParSingle extends JFrame implements ActionListener{
         // butaum.addActionListener(e -> result.setVisible(true));
         butaum.setFocusable(false);
 
-        pc.setText(Integer.toString(numPC));
+        // pc.setText(Integer.toString(numPC));
         pc.setVisible(false);
         result.setVisible(false);
         result.setText("");
@@ -199,20 +207,35 @@ public class ImparParSingle extends JFrame implements ActionListener{
         
         if(e.getSource() == butaum){
 
+            numPC = random.nextInt(5) + 1;
+            pc.setText(Integer.toString(numPC));
             pc.setVisible(true);
 
             numPlayer = Integer.parseInt(campoTexto.getText());
-
+        if(modo == "par"){
             if ((numPC + numPlayer) % 2 == 0 ){
-                result.setText("Par!");
+                result.setText("Par, venceu!");
+                numPC = 0;
             }
             else{
-                result.setText("Ímpar!");
+                result.setText("Ímpar, perdeu!");
+                numPC = 0;
             }
 
             result.setVisible(true);
             
-            numPC = 0;
+            }else{
+                if ((numPC + numPlayer) % 2 == 0 ){
+                    result.setText("Par, perdeu!");
+                    numPC = 0;
+                }
+                else{
+                    result.setText("Ímpar, venceu!");
+                    numPC = 0;
+                }
+    
+                result.setVisible(true);
+            }
         }
         
     }
