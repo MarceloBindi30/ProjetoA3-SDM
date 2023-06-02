@@ -7,12 +7,12 @@ import com.a3sdm.Jogos.ImparParSingle;
 import com.a3sdm.Jogos.JogoDaVelha;
 import com.a3sdm.Jogos.JogoDaVelhaPvP;
 import com.a3sdm.Util.ClientHandler;
-import com.a3sdm.Util.Player;
+//import com.a3sdm.Util.Player;
 
 
 public class ThreadSingle extends Thread{
     private ClientHandler handler;
-    private Player p;
+    //private Player p;
     private Socket player1;
     private int jogo;
     private JogoDaVelha jogoDaVelha;
@@ -26,9 +26,9 @@ public class ThreadSingle extends Thread{
     //      this.jogo = jogo;
     // }
 
-    public ThreadSingle(Player player){
-        this.p = player;
-    }
+    // public ThreadSingle(Player player){
+    //     this.p = player;
+    // }
 
     public ThreadSingle(ClientHandler c1){
         this.handler = c1;
